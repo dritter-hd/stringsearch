@@ -9,4 +9,9 @@ if (NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the type of build." FORCE)
 endif()
 
-add_executable(benchmark benchmark.cpp)
+file(GLOB benchmark_SRC
+    "*.h"
+    "*.cpp"
+)
+
+add_executable(benchmark ${benchmark_SRC})

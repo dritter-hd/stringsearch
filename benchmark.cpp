@@ -19,6 +19,9 @@
 
 #include <locale.h>
 
+#include "stdafx.h"
+#include "ClFactoryStringSearch.h"
+
 /**
  * Determining whether we should import xlocale.h or not is 
  * a bit of a nightmare.
@@ -145,4 +148,31 @@ void demo(size_t howmany) {
 
 int main(int argc, char **argv) {
     demo(100 * 1000);
+    
+
+  char *text = ((char *)"test123test"), *pattern = ((char *)"test");
+  std::cout << text << pattern;
+	ClAbstractStringSearch* search;
+	int result=0;
+
+	/* Variant: BM */
+	search = ClFactoryStringSearch::getInstance(ClFactoryStringSearch::AC);
+
+	// preprocess
+	search->preprocess(pattern);
+	
+	// search
+	result = search->contains(text);
+
+	/* Variant: AC */
+	search = ClFactoryStringSearch::getInstance(ClFactoryStringSearch::BM);
+	
+	// preprocess
+	search->preprocess(pattern);
+	
+	// search
+	result = search->contains(text);
+  std::cout << result;
+
+	return 0;
 }
