@@ -1,1 +1,5 @@
+compiler:
+  - clang
+  - gcc
+
 install: make get-deps
