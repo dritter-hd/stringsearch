@@ -1,6 +1,8 @@
-compiler:
-  - clang
+language: cpp
+os: linux
+compiler: 
   - gcc
+  - clang
 
 install: cmake -B build .
 cmake --build build
