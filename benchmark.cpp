@@ -147,9 +147,8 @@ void demo(size_t howmany) {
 }
 
 int main(int argc, char **argv) {
-    demo(100 * 1000);
+  // demo(100 * 1000);
     
-
   char *text = ((char *)"test123test"), *pattern = ((char *)"test");
   std::cout << text << pattern;
 	ClAbstractStringSearch* search;
@@ -161,8 +160,15 @@ int main(int argc, char **argv) {
 	// preprocess
 	search->preprocess(pattern);
 	
-	// search
+  std::chrono::high_resolution_clock::time_point t1, t2;
+
+  // search
+  t1 = std::chrono::high_resolution_clock::now();
 	result = search->contains(text);
+  t2 = std::chrono::high_resolution_clock::now();
+  double diff =
+        std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1).count();
+  std::cout << "BM: " << result << ", time: " << diff << std::endl;
 
 	/* Variant: AC */
 	search = ClFactoryStringSearch::getInstance(ClFactoryStringSearch::BM);
@@ -171,8 +177,12 @@ int main(int argc, char **argv) {
 	search->preprocess(pattern);
 	
 	// search
+	t1 = std::chrono::high_resolution_clock::now();
 	result = search->contains(text);
-  std::cout << result;
+  t2 = std::chrono::high_resolution_clock::now();
+  diff =
+        std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1).count();
+  std::cout << "AC: " << result << ", time: " << diff << std::endl;
 
 	return 0;
 }
