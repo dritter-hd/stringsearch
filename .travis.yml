@@ -2,4 +2,5 @@ compiler:
   - clang
   - gcc
 
-install: make get-deps
+install: cmake -B build .
+cmake --build build
